@@ -1,4 +1,4 @@
-class Beberage {
+class Beverage {
   constructor(name, price, imgUrl) {
     this.name = name;
     this.price = price;
@@ -6,29 +6,82 @@ class Beberage {
   }
 }
 
-let Beberage = [
-  new Beberage("aquarius", 100, "img\2-top-aquarius.png"),
-  new Beberage("ayataka", 110, "img\2-top-ayataka.png"),
-  new Beberage("canada-dry", 120, "img\2-top-canada-dry.png"),
-  new Beberage("cocacola", 130, "img\2-top-cocacola.png"),
-  new Beberage("costa-v2", 140, "img\2-top-costa-v2.png"),
-  new Beberage("drpepper", 110, "img\2-top-drpepper.png"),
-  new Beberage("fanta", 120, "img\2-top-fanta.png"),
-  new Beberage("georgia", 130, "img\2-top-georgia.png"),
-  new Beberage("hajime", 140, "img\2-top-hajime.png"),
-  new Beberage("huang", 140, "img\2-top-huang.png"),
-  new Beberage("i-lohas", 170, "img\2-top-i-lohas.png"),
-  new Beberage("jackdanielcocacola", 140, "img\2-top-jackdanielcocacola.png"),
-  new Beberage("karadasukoyakacha", 150, "img\2-top-karadasukoyakacha.png"),
-  new Beberage("kochakaden", 160, "img\2-top-kochakaden.png"),
-  new Beberage("lemondo", 180, "img\2-top-lemondo.png"),
-  new Beberage("nomels", 160, "img\2-top-nomels.png"),
-  new Beberage("qoo", 180, "img\2-top-qoo.png"),
-  new Beberage("realgold", 170, "img\2-top-realgold.png"),
-  new Beberage("saryusaisai", 150, "img\2-top-saryusaisai.png"),
-  new Beberage("sokenbicha", 120, "img\2-top-sokenbicha.png"),
-  new Beberage("sprite", 100, "img\2-top-sprite.png"),
-  new Beberage("yakan-v2", 170, "img\2-top-yakan-v2.png"),
-  new Beberage("yogurstand", 130, "img\2-top-yogurstand.png"),
-  new Beberage("yowanai_lemondo", 160, "img\2-top-yowanai_lemondo.png"),
+let beverage = [
+  new Beverage("Aquarius", 100, "img/top-aquarius.png"),
+  new Beverage("Ayataka", 110, "img/top-ayataka.png"),
+  new Beverage("Canadadry", 120, "img/top-canadadry.png"),
+  new Beverage("Cocacola", 130, "img/top-cocacola.png"),
+  new Beverage("Costa", 140, "img/top-costav2.png"),
+  new Beverage("Drpepper", 110, "img/top-drpepper.png"),
+  new Beverage("Fanta", 120, "img/top-fanta.png"),
+  new Beverage("Georgia", 130, "img/top-georgia.png"),
+  new Beverage("Hajime", 140, "img/top-hajime.png"),
+  new Beverage("Huang", 140, "img/top-huang.png"),
+  new Beverage("Ilohas", 170, "img/top-i-lohas.png"),
+  new Beverage("Jackdaniel", 140, "img/top-jackdanielcocacola.png"),
+  new Beverage("Sukoyakacha", 150, "img/top-karadasukoyakacha.png"),
+  new Beverage("Kochakaden", 160, "img/top-kochakaden.png"),
+  new Beverage("Lemondo", 180, "img/top-lemondo.png"),
+  new Beverage("Nomels", 160, "img/top-nomels.png"),
+  new Beverage("Qoo", 180, "img/top-qoo.png"),
+  new Beverage("Realgold", 170, "img/top-realgold.png"),
+  new Beverage("Saryusaisai", 150, "img/top-saryusaisai.png"),
+  new Beverage("Sokenbicha", 120, "img/top-sokenbicha.png"),
+  new Beverage("Sprite", 100, "img/top-sprite.png"),
+  new Beverage("Yakan", 170, "img/top-yakanv2.png"),
+  new Beverage("Yogurstand", 130, "img/top-yogurstand.png"),
+  new Beverage("Lemondo", 160, "img/top-yowanai_lemondo.png"),
 ];
+
+class Controller {
+  static slidejump(input) {
+    const leftSide = document.querySelector(".left-side");
+    leftSide.innerHTML = `
+    <img src="${beverage[input - 1].imgUrl}"/>
+    `;
+
+    const description = document.querySelector(".description");
+    description.innerHTML = `
+            <p class="name">Name:&nbsp${beverage[input - 1].name}</p>
+            <p class="price">Price:&nbsp￥${beverage[input - 1].price}</p>
+    `;
+  }
+}
+class View {
+  static createButton() {
+    let buttons = document.querySelector(".buttons");
+    for (let i = 1; i < beverage.length + 1; i++) {
+      let button = document.createElement("button");
+      button.setAttribute("type", "button");
+      button.innerHTML = `${i}`;
+      buttons.append(button);
+    }
+
+    for (let i = 1; i <= beverage.length; i++) {
+      document
+        .querySelectorAll("button")
+        [i - 1].addEventListener("click", function () {
+          Controller.slidejump(i);
+        });
+    }
+  }
+
+  static createInfoContainer(obj) {
+    const description = document.querySelector(".description");
+    description.innerHTML = `
+            <p class="name">Name:&nbsp${obj.name}</p>
+            <p class="price">Price:&nbsp￥${obj.price}</p>
+    `;
+  }
+
+  static createSlide(obj) {
+    const leftSide = document.querySelector(".left-side");
+    leftSide.innerHTML = `
+    <img src="${obj.imgUrl}"/>
+    `;
+  }
+}
+
+View.createButton();
+View.createInfoContainer(beverage[0]);
+View.createSlide(beverage[0]);
